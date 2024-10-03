@@ -24,10 +24,6 @@ function addShirts(shirts) {
 
         const seePageButton = document.createElement('button');
         seePageButton.textContent = 'See page';
-        seePageButton.onclick = function() {
-            localStorage.setItem('selectedShirt', JSON.stringify(shirt));
-            window.location.href = 'details.html';
-        };
 
         divElement.appendChild(image);
         divElement.appendChild(title);
