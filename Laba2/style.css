@@ -7,18 +7,78 @@ body {
     margin: 0;
     padding: 20px;
 }
+
 .container {
     text-align: left;
     width: 80%;
 }
+
 h1 {
     margin-left: 10%;
 }
+
 .shirt-container {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
     justify-content: center;
+}
+
+.details-container {
+    width: 800px;
+    padding: 20px;
+    background: white;
+    border-radius: 20px;
+    position: relative;
+    overflow: auto;
+    border: 2px solid black;
+}
+#shirt-title {
+    margin-left: 2px;
+}
+#shirt-image {
+    float: left;
+    height: auto;
+    margin-right: 20px;
+}
+#shirt-price {
+    margin-bottom: 10px;
+}
+#popup-description {
+    margin-bottom: 10px;
+}
+#colors {
+    display: flex;
+    align-items: center;
+}
+#front-button, #back-button {
+    background-color: #121111;
+    color: white;
+    margin-right: 5px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+#exit {
+    background-color: #121111;
+    color: white;
+    margin-right: 5px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+#color-buttons {
+    display: flex;
+    margin-left: 5px;
+}
+#color-buttons button {
+    width: 50px;
+    height: 25px;
+    border: 3px solid black;
+    margin-right: 5px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+#exit {
+    margin-top: 20px;
 }
 .T-shirt {
     background-color: #ffffff;
@@ -28,16 +88,20 @@ h1 {
     width: 200px;
     border-radius: 10px;
 }
-.T-shirt h2{
+
+.T-shirt h2 {
     font-size: 18px;
 }
-.T-shirt p{
+
+.T-shirt p {
     font-size: 12px;
 }
+
 .T-shirt img {
     max-width: 100%;
     height: auto;
 }
+
 .T-shirt button {
     margin: 5px;
     padding: 10px;
@@ -47,9 +111,11 @@ h1 {
     cursor: pointer;
     border-radius: 10px;
 }
+
 .T-shirt button:hover {
     background-color: #272626;
 }
+
 .popup {
     display: none;
     position: fixed;
@@ -61,6 +127,7 @@ h1 {
     overflow: auto;
     padding-top: 60px;
 }
+
 .popup-content {
     background-color: #f1f1f1;
     margin: 5% auto;
@@ -70,20 +137,25 @@ h1 {
     border-radius: 10px;
     position: relative;
 }
+
 .popup-content img {
     display: block;
     margin: 5px auto;
 }
+
 .popup-content h3,
 .popup-content p {
     text-align: center;
 }
+
 .popup-content #popup-description {
     text-align: left;
 }
+
 .popup-content #popup-price {
     text-align: center;
 }
+
 .close {
     color: #aaa;
     position: absolute;
@@ -92,6 +164,7 @@ h1 {
     font-size: 20px;
     font-weight: bold;
 }
+
 .close:hover,
 .close:focus {
     color: black;

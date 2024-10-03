@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shirts details</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Shirts details</title>
 </head>
 <body>
-<div class="container">
-  <h1 id="shirt-title"></h1>
-  <img id="shirt-image" src="" alt="Футболка" style="max-width: 100%; height: auto;">
-  <p id="shirt-description"></p>
-  <p id="shirt-price"></p>
-  <div id="color-buttons"></div>
-  <button onclick="goBack()">Назад</button>
+<div class="details-container">
+    <h1 id="shirt-title"></h1>
+    <img id="shirt-image" src="" alt="Футболка" style="max-width: 100%; height: auto;">
+    <p id="shirt-price"></p>
+    <p id="shirt-description"></p>
+    <div id="color-buttons-container">
+        <div>
+            <span>Side:</span>
+            <button id="front-button">Front</button>
+            <button id="back-button">Back</button>
+        </div>
+        <br>
+        <div id="colors">
+            <span>Color:</span>
+            <div id="color-buttons"></div>
+        </div>
+        <button id="exit" onclick="goBack()">Назад</button>
+    </div>
+    <script src="shirts.js"></script>
+    <script src="details.js"></script>
 </div>
-<script src="shirts.js"></script>
-<script src="details.js"></script>
 </body>
 </html>
