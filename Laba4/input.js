@@ -65,7 +65,7 @@ document.querySelectorAll('.target').forEach(target => {
 
     target.addEventListener('touchend', (e) => {
         if (initialTouch && e.changedTouches[0].identifier === initialTouch.identifier) {
-            // Здесь не нужно ничего делать, чтобы не запускать режим наклеивания
+            // Здесь ничего не делаем, чтобы не запускать режим наклеивания
         }
     });
 
