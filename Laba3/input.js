@@ -16,7 +16,6 @@ document.querySelectorAll('.target').forEach(target => {
             isStuck = false;
             target.style.backgroundColor = '';
         } else {
-            // Начинаем перетаскивание
             isDragging = true;
             offsetX = e.clientX - target.getBoundingClientRect().left;
             offsetY = e.clientY - target.getBoundingClientRect().top;
@@ -25,7 +24,7 @@ document.querySelectorAll('.target').forEach(target => {
     });
 
     target.addEventListener('dblclick', () => {
-        isStuck = true; // Приклеиваем элемент
+        isStuck = true;
         colorInterval = setInterval(() => {
             if (isStuck) {
                 target.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
