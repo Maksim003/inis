@@ -114,7 +114,7 @@ document.querySelectorAll('.target').forEach(target => {
     });
 
     document.addEventListener('touchstart', (e) => {
-        if (e.touches.length > 1 && isDragging || isStuck) {
+        if (e.touches.length > 1) {
             resetElement();
         }
     });
@@ -145,8 +145,19 @@ document.querySelectorAll('.target').forEach(target => {
         }
     }
 
+    /*function startSticking() {
+        isStuck = true;
+        colorInterval = setInterval(() => {
+            if (isStuck) {
+                target.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            }
+        }, 300);
+    }*/
+
     function startSticking() {
         isStuck = true;
+        originalPosition.left = target.style.left; // Обновляем оригинальную позицию
+        originalPosition.top = target.style.top; // Обновляем оригинальную позицию
         colorInterval = setInterval(() => {
             if (isStuck) {
                 target.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
