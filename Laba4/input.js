@@ -35,13 +35,35 @@ document.querySelectorAll('.target').forEach(target => {
         }
     });
 
-    target.addEventListener('touchstart', (e) => {
+    /*target.addEventListener('touchstart', (e) => {
         const touch = e.touches[0];
         if (e.target === resizeHandle) {
             startResizing(touch.clientX, touch.clientY);
         } else {
             startDragging(touch.clientX, touch.clientY);
             initialTouch = touch;
+        }
+    });*/
+
+    target.addEventListener('touchstart', (e) => {
+        const touch = e.touches[0];
+        if (isStuck) {
+            moveElement(touch.clientX, touch.clientY); // Следует за пальцем
+        } else if (e.target === resizeHandle) {
+            startResizing(touch.clientX, touch.clientY);
+        } else {
+            startDragging(touch.clientX, touch.clientY);
+            initialTouch = touch;
+        }
+    });
+
+    document.addEventListener('touchmove', (e) => {
+        if (isDragging || isStuck) {
+            const touch = e.touches[0];
+            moveElement(touch.clientX, touch.clientY);
+        } else if (isResizing) {
+            const touch = e.touches[0];
+            resizeElement(touch.clientX, touch.clientY);
         }
     });
 
@@ -63,7 +85,7 @@ document.querySelectorAll('.target').forEach(target => {
         }
     });
 
-    document.addEventListener('touchmove', (e) => {
+    /*document.addEventListener('touchmove', (e) => {
         if (isDragging || isStuck) {
             const touch = e.touches[0];
             moveElement(touch.clientX, touch.clientY);
@@ -71,7 +93,7 @@ document.querySelectorAll('.target').forEach(target => {
             const touch = e.touches[0];
             resizeElement(touch.clientX, touch.clientY);
         }
-    });
+    });*/
 
     document.addEventListener('mouseup', () => {
         stopDragging();
