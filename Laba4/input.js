@@ -39,10 +39,13 @@ document.querySelectorAll('.target').forEach(target => {
         const touch = e.touches[0];
         if (e.touches.length > 1) {
             resetElement(); // Сброс позиции при втором пальце
-        } else if (isStuck) {
-            moveElement(touch.clientX, touch.clientY); // Следует за пальцем
         } else {
-            initialTouch = touch;
+            if (isStuck) {
+                moveElement(touch.clientX, touch.clientY); // Следует за пальцем
+            } else {
+                initialTouch = touch;
+                startDragging(touch.clientX, touch.clientY);
+            }
         }
     });
 
@@ -86,15 +89,10 @@ document.querySelectorAll('.target').forEach(target => {
     });
 
     function startDragging(clientX, clientY) {
-        if (isStuck) {
-            isStuck = false;
-            target.style.backgroundColor = '';
-        } else {
-            isDragging = true;
-            offsetX = clientX - target.getBoundingClientRect().left;
-            offsetY = clientY - target.getBoundingClientRect().top;
-            target.style.cursor = 'grabbing';
-        }
+        isDragging = true;
+        offsetX = clientX - target.getBoundingClientRect().left;
+        offsetY = clientY - target.getBoundingClientRect().top;
+        target.style.cursor = 'grabbing';
     }
 
     function moveElement(clientX, clientY) {
@@ -104,16 +102,12 @@ document.querySelectorAll('.target').forEach(target => {
     }
 
     function stopDragging() {
-        if (!isStuck) {
-            isDragging = false;
-            target.style.cursor = 'grab';
-        }
+        isDragging = false;
+        target.style.cursor = 'grab';
     }
 
     function startSticking() {
         isStuck = true;
-        originalPosition.left = target.style.left; // Обновляем оригинальную позицию
-        originalPosition.top = target.style.top; // Обновляем оригинальную позицию
         colorInterval = setInterval(() => {
             if (isStuck) {
                 target.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
