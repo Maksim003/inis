@@ -41,10 +41,7 @@ document.querySelectorAll('.target').forEach(target => {
             resetElement(); // Сброс позиции при втором пальце
         } else if (isStuck) {
             moveElement(touch.clientX, touch.clientY); // Следует за пальцем
-        } else if (e.target === resizeHandle) {
-            startResizing(touch.clientX, touch.clientY);
         } else {
-            startDragging(touch.clientX, touch.clientY);
             initialTouch = touch;
         }
     });
@@ -64,8 +61,8 @@ document.querySelectorAll('.target').forEach(target => {
     });
 
     target.addEventListener('touchend', (e) => {
-        if (initialTouch && e.changedTouches[0].identifier === initialTouch.identifier) {
-            // Здесь ничего не делаем, чтобы не запускать режим наклеивания
+        if (e.touches.length === 0) {
+            resetElement(); // Сброс при отпускании всех пальцев
         }
     });
 
@@ -80,13 +77,6 @@ document.querySelectorAll('.target').forEach(target => {
     document.addEventListener('mouseup', () => {
         stopDragging();
         stopResizing();
-    });
-
-    document.addEventListener('touchend', (e) => {
-        if (e.touches.length === 0) {
-            stopDragging();
-            stopResizing();
-        }
     });
 
     document.addEventListener('keydown', (e) => {
