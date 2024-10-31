@@ -14,7 +14,7 @@ document.querySelectorAll('.target').forEach(target => {
     target.addEventListener('mousedown', (e) => {
         if (isStuck) {
             isStuck = false;
-            target.style.backgroundColor = ''; // Возвращаем исходный цвет
+            target.style.backgroundColor = '';
         } else {
             // Начинаем перетаскивание
             isDragging = true;
