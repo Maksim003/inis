@@ -227,7 +227,7 @@ document.querySelectorAll('.target').forEach(target => {
     target.addEventListener('touchend', stopDragging);
 
     document.addEventListener('touchstart', (e) => {
-        if (isStuck && e.touches.length > 1) {
+        if ((isStuck && e.touches.length > 1) || (isDragging && e.touches.length > 1)) {
             isDragging = false;
             isStuck = false;
             target.style.left = originalPosition.left;
@@ -243,6 +243,5 @@ document.querySelectorAll('.target').forEach(target => {
         if (isStuck) {
             moveElement(e.touches[0].clientX, e.touches[0].clientY);
         }
-
     });
 });
