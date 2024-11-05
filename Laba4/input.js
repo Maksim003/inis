@@ -227,7 +227,7 @@ document.querySelectorAll('.target').forEach(target => {
     target.addEventListener('touchend', stopDragging);
 
     document.addEventListener('touchstart', (e) => {
-        if (isDragging && e.touches.length > 1) {
+        if ((isDragging && e.touches.length > 1) || (isStuck && e.touches.length > 1)) {
             // Возврат элемента на исходную позицию при использовании второго пальца
             isDragging = false;
             isStuck = false;
@@ -235,14 +235,14 @@ document.querySelectorAll('.target').forEach(target => {
             target.style.top = originalPosition.top;
             target.style.cursor = 'grab';
             target.style.backgroundColor = '';
-        } else if (isStuck && e.touches.length > 1) {
+        } /*else if (isStuck && e.touches.length > 1 ) {
             isDragging = false;
             isStuck = false;
             target.style.left = originalPosition.left;
             target.style.top = originalPosition.top;
             target.style.cursor = 'grab';
             target.style.backgroundColor = '';
-        } else if (isStuck) {
+        }*/ else if (isStuck) {
             moveElement(e.touches[0].clientX, e.touches[0].clientY);
         }
     });
