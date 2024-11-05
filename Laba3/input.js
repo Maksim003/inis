@@ -49,7 +49,7 @@ document.querySelectorAll('.target').forEach(target => {
     });
 
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && isDragging || isStuck) {
+        if (e.key === 'Escape' && (isDragging || isStuck)) {
             isDragging = false;
             isStuck = false;
             target.style.left = originalPosition.left;

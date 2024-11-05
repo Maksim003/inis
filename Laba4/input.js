@@ -173,14 +173,10 @@ document.querySelectorAll('.target').forEach(target => {
         }
     };
 
-    const moveElement = (e) => {
-        if (isDragging) {
-            const clientX = e.clientX || (e.touches ? e.touches[0].clientX : 0);
-            const clientY = e.clientY || (e.touches ? e.touches[0].clientY : 0);
-            target.style.position = 'absolute';
-            target.style.left = `${clientX - (isStuck ? offsetX : 0)}px`;
-            target.style.top = `${clientY - (isStuck ? offsetY : 0)}px`;
-        }
+    const moveElement = (clientX, clientY) => {
+        target.style.position = 'absolute';
+        target.style.left = `${clientX - (isStuck ? offsetX : 0)}px`;
+        target.style.top = `${clientY - (isStuck ? offsetY : 0)}px`;
     };
 
     const stopDragging = () => {
@@ -191,7 +187,11 @@ document.querySelectorAll('.target').forEach(target => {
     };
 
     target.addEventListener('mousedown', (e) => startDragging(e));
-    document.addEventListener('mousemove', (e) => moveElement(e));
+    document.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+            moveElement(e.clientX, e.clientY);
+        }
+    });
     document.addEventListener('mouseup', stopDragging);
 
     target.addEventListener('dblclick', () => {
@@ -200,13 +200,15 @@ document.querySelectorAll('.target').forEach(target => {
     });
 
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && (isStuck || isDragging)) {
-            isDragging = false;
-            isStuck = false;
-            target.style.left = originalPosition.left;
-            target.style.top = originalPosition.top;
-            target.style.cursor = 'grab';
-            target.style.backgroundColor = '';
+        if (e.key === 'Escape') {
+            if (isStuck || isDragging) {
+                isDragging = false;
+                isStuck = false;
+                target.style.left = originalPosition.left;
+                target.style.top = originalPosition.top;
+                target.style.cursor = 'grab';
+                target.style.backgroundColor = '';
+            }
         }
     });
 
@@ -217,7 +219,9 @@ document.querySelectorAll('.target').forEach(target => {
     });
 
     target.addEventListener('touchmove', (e) => {
-        moveElement(e.touches[0]);
+        if (isDragging || isStuck) {
+            moveElement(e.touches[0].clientX, e.touches[0].clientY);
+        }
     });
 
     target.addEventListener('touchend', stopDragging);
@@ -231,13 +235,13 @@ document.querySelectorAll('.target').forEach(target => {
             target.style.cursor = 'grab';
             target.style.backgroundColor = '';
         } else if (isStuck) {
-            moveElement(e.touches[0]);
+            moveElement(e.touches[0].clientX, e.touches[0].clientY);
         }
     });
 
     document.addEventListener('touchmove', (e) => {
         if (isStuck) {
-            moveElement(e.touches[0]);
+            moveElement(e.touches[0].clientX, e.touches[0].clientY);
         }
     });
 });
