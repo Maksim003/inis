@@ -243,5 +243,6 @@ document.querySelectorAll('.target').forEach(target => {
         if (isStuck) {
             moveElement(e.touches[0].clientX, e.touches[0].clientY);
         }
+
     });
 });
