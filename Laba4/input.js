@@ -194,16 +194,19 @@ document.querySelectorAll('.target').forEach(target => {
     });
 
     target.addEventListener('touchstart', (e) => {
-        const touch = e.touches[0];
         if (e.touches.length > 1) {
-            resetElement();
-        } else {
-            if (isStuck) {
-                moveElement(touch.clientX, touch.clientY); // Следует за пальцем
-            } else {
-                initialTouch = touch;
-                startDragging(touch.clientX, touch.clientY);
+            if (isDragging) {
+                resetElement();
             }
+            return;
+        }
+
+        const touch = e.touches[0];
+        if (isStuck) {
+            moveElement(touch.clientX, touch.clientY);
+        } else {
+            initialTouch = touch;
+            startDragging(touch.clientX, touch.clientY);
         }
     });
 
@@ -223,8 +226,6 @@ document.querySelectorAll('.target').forEach(target => {
 
     target.addEventListener('touchend', (e) => {
         if (e.touches.length === 0) {
-            resetElement();
-        } else if (e.touches.length > 1) {
             resetElement();
         }
     });
