@@ -164,8 +164,7 @@ document.querySelectorAll('.target').forEach(target => {
 
     const startDragging = (e) => {
         if (isStuck) {
-            isStuck = false;
-            target.style.backgroundColor = '';
+            isDragging = true;
         } else {
             isDragging = true;
             offsetX = e.clientX ? e.clientX - target.getBoundingClientRect().left : e.touches[0].clientX - target.getBoundingClientRect().left;
@@ -175,7 +174,7 @@ document.querySelectorAll('.target').forEach(target => {
     };
 
     const moveElement = (e) => {
-        if (isDragging || isStuck) {
+        if (isDragging) {
             const clientX = e.clientX || (e.touches ? e.touches[0].clientX : 0);
             const clientY = e.clientY || (e.touches ? e.touches[0].clientY : 0);
             target.style.position = 'absolute';
@@ -201,7 +200,7 @@ document.querySelectorAll('.target').forEach(target => {
     });
 
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
+        if (e.key === 'Escape' && (isStuck || isDragging)) {
             isDragging = false;
             isStuck = false;
             target.style.left = originalPosition.left;
@@ -224,13 +223,21 @@ document.querySelectorAll('.target').forEach(target => {
     target.addEventListener('touchend', stopDragging);
 
     document.addEventListener('touchstart', (e) => {
-        if (e.touches.length > 1) {
+        if (isStuck && e.touches.length > 1) {
             isDragging = false;
             isStuck = false;
             target.style.left = originalPosition.left;
             target.style.top = originalPosition.top;
             target.style.cursor = 'grab';
             target.style.backgroundColor = '';
+        } else if (isStuck) {
+            moveElement(e.touches[0]);
+        }
+    });
+
+    document.addEventListener('touchmove', (e) => {
+        if (isStuck) {
+            moveElement(e.touches[0]);
         }
     });
 });
