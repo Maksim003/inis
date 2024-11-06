@@ -94,11 +94,11 @@ document.querySelectorAll('.target').forEach(target => {
         }
     });
 
-    target.addEventListener('touchstart', (e) => {
+   /* target.addEventListener('touchstart', (e) => {
         if (e.touches.length === 1) {
             startDragging(e.touches[0]);
         }
-    });
+    });*/
 
     target.addEventListener('touchmove', (e) => {
         if (isDragging || isStuck) {
@@ -106,7 +106,18 @@ document.querySelectorAll('.target').forEach(target => {
         }
     });
 
-    target.addEventListener('touchend', stopDragging);
+    document.addEventListener('touchend', () => {
+        stopDragging();
+        stopResizing();
+    });
+
+    target.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+            startDragging(e.touches[0]);
+        } else if (e.touches.length > 1 && e.target === resizeHandle) {
+            startResizing(e.touches[1].clientX, e.touches[1].clientY);
+        }
+    });
 
     document.addEventListener('touchstart', (e) => {
         if ((isDragging && e.touches.length > 1) || (isStuck && e.touches.length > 1)) {
@@ -125,7 +136,7 @@ document.querySelectorAll('.target').forEach(target => {
         if (isStuck) {
             moveElement(e.touches[0].clientX, e.touches[0].clientY);
         } else if (isResizing) {
-            const touch = e.touches[0];
+            const touch = e.touches[1];
             resizeElement(touch.clientX, touch.clientY);
         }
     });
