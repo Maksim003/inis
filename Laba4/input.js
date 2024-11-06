@@ -98,7 +98,6 @@ document.querySelectorAll('.target').forEach(target => {
         if (isDragging || isStuck) {
             moveElement(e.touches[0].clientX, e.touches[0].clientY);
         } else if (isResizing) {
-            e.preventDefault();
             resizeElement(e.touches[0].clientX, e.touches[0].clientY);
         }
     });
