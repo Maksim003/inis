@@ -99,6 +99,7 @@ document.querySelectorAll('.target').forEach(target => {
             moveElement(e.touches[0].clientX, e.touches[0].clientY);
         } else if (isResizing) {
             resizeElement(e.touches[0].clientX, e.touches[0].clientY);
+            e.preventDefault();
         }
     });
 
@@ -109,8 +110,8 @@ document.querySelectorAll('.target').forEach(target => {
     });
 
     target.addEventListener('touchstart', (e) => {
-        e.preventDefault();
         if (e.target === resizeHandle) {
+            e.preventDefault();
             startResizing(e.touches[0].clientX, e.touches[0].clientY);
         } else if (e.touches.length === 1) {
             startDragging(e.touches[0]);
@@ -133,9 +134,9 @@ document.querySelectorAll('.target').forEach(target => {
     document.addEventListener('touchmove', (e) => {
         if (isStuck) {
             moveElement(e.touches[0].clientX, e.touches[0].clientY);
-        } else if (isResizing) {
+        } /*else if (isResizing) {
             resizeElement(e.touches[0].clientX, e.touches[0].clientY);
-        }
+        }*/
     });
 
     function startResizing(clientX, clientY) {
