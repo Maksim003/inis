@@ -94,12 +94,6 @@ document.querySelectorAll('.target').forEach(target => {
         }
     });
 
-    /*target.addEventListener('touchmove', (e) => {
-        if (isDragging || isStuck) {
-            moveElement(e.touches[0].clientX, e.touches[0].clientY);
-        }
-    });*/
-
     target.addEventListener('touchmove', (e) => {
         if (isDragging || isStuck) {
             moveElement(e.touches[0].clientX, e.touches[0].clientY);
@@ -115,6 +109,7 @@ document.querySelectorAll('.target').forEach(target => {
     });
 
     target.addEventListener('touchstart', (e) => {
+        e.preventDefault();
         if (e.target === resizeHandle) {
             startResizing(e.touches[0].clientX, e.touches[0].clientY);
         } else if (e.touches.length === 1) {
