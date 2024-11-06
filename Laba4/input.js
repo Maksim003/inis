@@ -100,14 +100,6 @@ document.querySelectorAll('.target').forEach(target => {
         }
     });*/
 
-    document.addEventListener('touchmove', (e) => {
-        if (isDragging) {
-            moveElement(e.touches[0].clientX, e.touches[0].clientY);
-        } else if (isResizing) {
-            resizeElement(e.touches[1].clientX, e.touches[1].clientY);
-        }
-    });
-
     target.addEventListener('touchmove', (e) => {
         if (isDragging || isStuck) {
             moveElement(e.touches[0].clientX, e.touches[0].clientY);
@@ -119,11 +111,19 @@ document.querySelectorAll('.target').forEach(target => {
         stopResizing();
     });
 
-    target.addEventListener('touchstart', (e) => {
+    /*target.addEventListener('touchstart', (e) => {
         if (e.touches.length === 1) {
             startDragging(e.touches[0]);
         } else if (e.touches.length > 1 && e.target === resizeHandle) {
             startResizing(e.touches[1].clientX, e.touches[1].clientY);
+        }
+    });*/
+
+    target.addEventListener('touchstart', (e) => {
+        if (e.target === resizeHandle) {
+            startResizing(e.touches[0].clientX, e.touches[0].clientY);
+        } else {
+            startDragging(e.touches[0]);
         }
     });
 
@@ -140,7 +140,7 @@ document.querySelectorAll('.target').forEach(target => {
         }
     });
 
-   /* document.addEventListener('touchmove', (e) => {
+   /*document.addEventListener('touchmove', (e) => {
         if (isStuck) {
             moveElement(e.touches[0].clientX, e.touches[0].clientY);
         } else if (isResizing) {
@@ -148,6 +148,14 @@ document.querySelectorAll('.target').forEach(target => {
             resizeElement(touch.clientX, touch.clientY);
         }
     });*/
+
+    document.addEventListener('touchmove', (e) => {
+        if (isStuck) {
+            moveElement(e.touches[0].clientX, e.touches[0].clientY);
+        } else if (isResizing) {
+            resizeElement(e.touches[0].clientX, e.touches[0].clientY);
+        }
+    });
 
     function startResizing(clientX, clientY) {
         isResizing = true;
