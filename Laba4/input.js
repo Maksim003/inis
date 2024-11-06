@@ -100,6 +100,14 @@ document.querySelectorAll('.target').forEach(target => {
         }
     });*/
 
+    document.addEventListener('touchmove', (e) => {
+        if (isDragging) {
+            moveElement(e.touches[0].clientX, e.touches[0].clientY);
+        } else if (isResizing) {
+            resizeElement(e.touches[1].clientX, e.touches[1].clientY);
+        }
+    });
+
     target.addEventListener('touchmove', (e) => {
         if (isDragging || isStuck) {
             moveElement(e.touches[0].clientX, e.touches[0].clientY);
@@ -132,14 +140,14 @@ document.querySelectorAll('.target').forEach(target => {
         }
     });
 
-    document.addEventListener('touchmove', (e) => {
+   /* document.addEventListener('touchmove', (e) => {
         if (isStuck) {
             moveElement(e.touches[0].clientX, e.touches[0].clientY);
         } else if (isResizing) {
             const touch = e.touches[1];
             resizeElement(touch.clientX, touch.clientY);
         }
-    });
+    });*/
 
     function startResizing(clientX, clientY) {
         isResizing = true;
