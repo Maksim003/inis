@@ -15,6 +15,7 @@ document.querySelectorAll('.target').forEach(target => {
         if (isStuck) {
             isStuck = false;
             target.style.backgroundColor = '';
+            originalPosition = { left: target.style.left, top: target.style.top };
         } else {
             isDragging = true;
             offsetX = e.clientX - target.getBoundingClientRect().left;
@@ -42,8 +43,8 @@ document.querySelectorAll('.target').forEach(target => {
 
     document.addEventListener('mouseup', () => {
         if (!isStuck) {
-            clearInterval(colorInterval);
             isDragging = false;
+            originalPosition = { left: target.style.left, top: target.style.top };
             target.style.cursor = 'grab';
         }
     });
